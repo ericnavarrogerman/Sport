@@ -98,11 +98,12 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="left"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/ic_baseline_menu_open_24" />
+                        app:srcCompat="@android:drawable/stat_notify_sync" />
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/eventos"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>

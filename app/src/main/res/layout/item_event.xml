@@ -4,22 +4,112 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
 
-        <import type="com.example.sport.model.Teams" />
+        <import type="com.example.sport.model.Events" />
 
         <import type="com.example.sport.utils.ViewUtils.Companion" />
 
 
 
         <variable
-            name="team"
-            type="com.example.sport.model.Teams" />
+            name="event"
+            type="com.example.sport.model.Events" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp" />
+        android:layout_height="wrap_content"
+        android:padding="4dp">
+
+        <ImageView
+            android:id="@+id/logoHome"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/home" />
+
+        <ImageView
+            android:id="@+id/logoVisitor"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/visitor" />
+
+        <TextView
+            android:id="@+id/nameEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="4dp"
+            android:text="@{event.name}"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/logoHome"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/nameHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{event.home}"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/logoHome"
+            app:layout_constraintStart_toStartOf="@+id/logoHome"
+            app:layout_constraintTop_toBottomOf="@+id/logoHome" />
+
+        <TextView
+            android:id="@+id/nameVisitor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{event.away}"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/logoVisitor"
+            app:layout_constraintStart_toStartOf="@+id/logoVisitor"
+            app:layout_constraintTop_toBottomOf="@+id/logoVisitor" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/logoHome"
+            app:layout_constraintEnd_toStartOf="@+id/logoVisitor"
+            app:layout_constraintStart_toEndOf="@+id/logoHome"
+            app:layout_constraintTop_toTopOf="@+id/logoVisitor">
+
+            <TextView
+                android:id="@+id/dateEvent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="@{event.date}" />
+
+            <TextView
+                android:id="@+id/hourEvent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="@{event.hour}" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

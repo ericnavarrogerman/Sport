@@ -54,3 +54,9 @@ data class Events(
         }
     }
 }
+
+data class ResponseEvents(
+
+    @SerializedName("results")
+    var events: ArrayList<Events> = ArrayList()
+        )

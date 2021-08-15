@@ -2,6 +2,7 @@ package com.example.sport.service
 
 import com.example.sport.model.Events
 import com.example.sport.model.ResponseApi
+import com.example.sport.model.ResponseEvents
 import com.example.sport.model.Teams
 import io.reactivex.Observable
 import retrofit2.Call
@@ -31,7 +32,7 @@ interface SportService {
 
 
   @GET(SEARCH_EVENTOS)
-  fun getEventForId(@Query("id") idTeam: String): Call<List<Events>>
+  fun getEventForId(@Query("id") idTeam: String): Call<ResponseEvents>
 
 
 
