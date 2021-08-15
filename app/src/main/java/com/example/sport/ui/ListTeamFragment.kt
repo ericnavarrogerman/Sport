@@ -7,7 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavHost
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.example.sport.R
+import com.example.sport.databinding.FragmentListTeamBinding
+import com.example.sport.model.Teams
 import com.example.sport.mvvm.ViewModelListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,32 +22,44 @@ class ListTeamFragment : Fragment() {
 
 
     val model :ViewModelListFragment by viewModels()
+    lateinit var  binding:FragmentListTeamBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_list_team, container, false)
-    }
+        binding= FragmentListTeamBinding.bind(inflater.inflate(R.layout.fragment_list_team,container,false))
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        val adapter = AdapterTeams().apply {
+            clic={  team ->
 
+                val accion =ListTeamFragmentDirections.actionListTeamFragmentToDetailsTeamFragment(team)
+
+                findNavController().navigate(accion)
+            }
+        }
+
+        val decoration: RecyclerView.ItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+
+        binding.rvTeams.apply {
+            this.adapter=adapter
+            addItemDecoration(decoration)
+
+        }
 
         model.getTeamsForLeague("Soccer","Spain")
         model.teams.observe(viewLifecycleOwner,{
 
-          var cantidad=  it.size
+            adapter.setDataList(ArrayList(it))
+
         })
+
+
+        return binding.root
     }
+
 
 }

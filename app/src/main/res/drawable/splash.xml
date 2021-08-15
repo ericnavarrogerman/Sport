@@ -2,6 +2,6 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/teal_200"></item>
     <item>
-        <bitmap android:gravity="center" android:src="@android:drawable/btn_star_big_off" />
+        <bitmap android:gravity="center" android:src="@drawable/footballsplash" />
     </item>
 </layer-list>

@@ -9,7 +9,13 @@
         android:id="@+id/detailsTeamFragment"
         android:name="com.example.sport.ui.DetailsTeamFragment"
         android:label="fragment_details_team"
-        tools:layout="@layout/fragment_details_team" />
+        tools:layout="@layout/fragment_details_team" >
+
+        <argument
+            android:name="team"
+            app:argType="com.example.sport.model.Teams" />
+
+    </fragment>
     <fragment
         android:id="@+id/listTeamFragment"
         android:name="com.example.sport.ui.ListTeamFragment"

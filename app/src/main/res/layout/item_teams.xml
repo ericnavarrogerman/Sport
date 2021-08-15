@@ -4,24 +4,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
 
+        <import type="com.example.sport.model.Teams" />
+
+        <import type="com.example.sport.utils.ViewUtils.Companion" />
+        
+
 
         <variable
-            name="image"
-            type="String" />
-
-        <variable
-            name="name"
-            type="String" />
-        <variable
-            name="stadium"
-            type="String" />
-
+            name="team"
+            type="com.example.sport.model.Teams" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/parent"
         android:padding="10dp">
 
         <ImageView
@@ -31,10 +29,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            app:loadImageUrl="@{team.badge}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_sports_handball_24" />
+            />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -53,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="8dp"
-                android:text="Nombre del equipo"
+                android:text="@{team.name}"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -63,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="8dp"
-                android:text="Nombre del estadio" />
+                android:text="@{team.stadium}" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

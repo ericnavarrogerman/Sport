@@ -1,7 +1,10 @@
 package com.example.sport.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Events(
     @SerializedName("idEvent")
     var id:String,
@@ -15,4 +18,4 @@ data class Events(
     var date:String,
     @SerializedName("strTime")
     var hour:String
-)
+) : Parcelable
