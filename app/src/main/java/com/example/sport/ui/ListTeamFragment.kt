@@ -50,7 +50,7 @@ class ListTeamFragment : Fragment() {
 
         }
 
-        model.getTeamsForLeague("Soccer","Spain")
+        model.getTeamsForLeague("4335")
         model.teams.observe(viewLifecycleOwner,{
 
             adapter.setDataList(ArrayList(it))

@@ -1,10 +1,12 @@
 package com.example.sport.model
 
+import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 
-@Parcelize
+
+
+
 data class Teams(
     @SerializedName("idTeam")
     var id:String,
@@ -18,7 +20,7 @@ data class Teams(
     var badge:String,
     @SerializedName("strStadium")
     var stadium:String,
-    @SerializedName("strJersey")
+    @SerializedName("strTeamJersey")
     var jersey:String,
 
     @SerializedName("strWebsite")
@@ -34,7 +36,53 @@ data class Teams(
 
     var events: ArrayList<Events> = ArrayList()
 
-) : Parcelable
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readString().toString(),
+        parcel.readString().toString(),
+        parcel.readString().toString(),
+        parcel.readString().toString(),
+        parcel.readString().toString(),
+        parcel.readString().toString(),
+        parcel.readString().toString(),
+        parcel.readString().toString(),
+        parcel.readString().toString(),
+        parcel.readString().toString(),
+        parcel.readString().toString(),
+        parcel.readString().toString(),
+
+    ) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(id)
+        parcel.writeString(name)
+        parcel.writeString(description)
+        parcel.writeString(foundationYear)
+        parcel.writeString(badge)
+        parcel.writeString(stadium)
+        parcel.writeString(jersey)
+        parcel.writeString(pageWeb)
+        parcel.writeString(facebook)
+        parcel.writeString(twitter)
+        parcel.writeString(youtube)
+        parcel.writeString(instagram)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Teams> {
+        override fun createFromParcel(parcel: Parcel): Teams {
+            return Teams(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Teams?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
 
 
 data class ResponseApi(

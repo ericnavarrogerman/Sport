@@ -19,9 +19,9 @@ class Repository @Inject constructor(var apiClient: ApiClient){
 
 
 
-    fun getTeamsForLeague(sport:String,country:String){
+    fun getTeamsForLeague(idLeague:String){
 
-        var call =apiClient.getTeamsForLeague(sport, country)
+        var call =apiClient.getTeamsForLeague(idLeague)
 
         call.enqueue(object :Callback<ResponseApi>{
             override fun onResponse(

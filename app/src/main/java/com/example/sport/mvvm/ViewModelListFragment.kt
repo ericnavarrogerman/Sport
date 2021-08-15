@@ -23,9 +23,9 @@ class ViewModelListFragment @Inject constructor(var repository: Repository): Vie
 
 
 
-    fun getTeamsForLeague(sport:String,country:String){
+    fun getTeamsForLeague(idLeague:String){
 
-        repository.getTeamsForLeague(sport,country)
+        repository.getTeamsForLeague(idLeague)
 
         repository._teams.observeForever({
             _teams.value=it

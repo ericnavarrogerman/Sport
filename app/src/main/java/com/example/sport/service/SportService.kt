@@ -16,7 +16,7 @@ interface SportService {
 
         const val BASE_URL="https://www.thesportsdb.com/api/v1/json/"
 
-        const val SEARCH_ALL_TEAMS ="1/search_all_teams.php"
+        const val SEARCH_ALL_TEAMS ="1/lookup_all_teams.php"
 
         const val SEARCH_EVENTOS="1/eventslast.php"
     }
@@ -25,8 +25,7 @@ interface SportService {
 
     @GET(SEARCH_ALL_TEAMS)
   fun getTeamsForLeague(
-        @Query("s") sport:String,
-        @Query("c") country:String
+        @Query("id") idLeague:String
 
   ): Call<ResponseApi>
 

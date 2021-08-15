@@ -27,10 +27,10 @@ class DetailsTeamFragment : Fragment() {
     ): View? {
 
 
-        binding= FragmentDetailsTeamBinding.bind(inflater.inflate(R.layout.fragment_details_team,container,false))
+        binding = FragmentDetailsTeamBinding.bind(inflater.inflate(R.layout.fragment_details_team,container,false))
 
 
-        binding.name=args.team.name
+        binding.team = args.team
 
 
 
