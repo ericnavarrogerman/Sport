@@ -54,20 +54,34 @@ class DetailsTeamFragment : Fragment() {
 
         }
 
+        getEvents(team.id)
 
-       model.getEventForIdTeam(team.id)
 
         model.events.observe(viewLifecycleOwner,{
+            binding.progress=false
+            binding.noWifi=false
+            binding.recycler=true
             adapter.setDataList(ArrayList(it))
         })
 
         model.error.observe(viewLifecycleOwner,{
-            Toast.makeText(context,"Error $it",Toast.LENGTH_LONG).show()
+            binding.progress=false
+            binding.noWifi=true
+            binding.recycler=false
         })
 
-
+        binding.buttonRetry.setOnClickListener { getEvents(team.id) }
 
         return binding.root
+    }
+
+
+
+    fun getEvents(id:String){
+        binding.progress=true
+        binding.noWifi=false
+        binding.recycler=false
+        model.getEventForIdTeam(id)
     }
 
 }

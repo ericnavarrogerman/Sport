@@ -9,6 +9,17 @@
             name="team"
             type="com.example.sport.model.Teams" />
 
+        <variable
+            name="progress"
+            type="Boolean" />
+
+        <variable
+            name="noWifi"
+            type="Boolean" />
+        <variable
+            name="recycler"
+            type="Boolean" />
+
 
 
     </data>
@@ -115,12 +126,53 @@
 
                         </LinearLayout>
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/eventos"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scrollbars="horizontal"
-                             />
+                            android:layout_weight="3"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                app:isVisible="@{noWifi}">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:srcCompat="@drawable/offline" />
+
+                                <Button
+                                    android:id="@+id/buttonRetry"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:text="Retry" />
+
+                            </LinearLayout>
+
+                            <ProgressBar
+                                android:id="@+id/progressBar"
+                                style="?android:attr/progressBarStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:indeterminate="true"
+                                android:indeterminateBehavior="repeat"
+                                android:indeterminateOnly="true"
+                                app:isVisible="@{progress}" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/eventos"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:scrollbars="horizontal"
+                                app:isVisible="@{recycler}" />
+
+                        </LinearLayout>
                     </LinearLayout>
 
 

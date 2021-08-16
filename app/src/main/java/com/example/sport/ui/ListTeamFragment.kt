@@ -9,6 +9,7 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavHost
@@ -52,6 +53,9 @@ class ListTeamFragment : Fragment() {
                 ) {
 
                     val selected = parent?.getItemAtPosition(position).toString().split(" ").get(0)
+                    binding.progress=true
+                    binding.noWifi=false
+                    binding.recycler=false
                     model.getTeamsForLeague(selected)
                 }
 
@@ -83,14 +87,25 @@ class ListTeamFragment : Fragment() {
 
 
         model.teams.observe(viewLifecycleOwner,{
-
+            binding.progress=false
+            binding.noWifi=false
+            binding.recycler=true
             adapter.setDataList(ArrayList(it))
 
         })
 
         model.error.observe(viewLifecycleOwner,{
-            Toast.makeText(context,"Error $it", Toast.LENGTH_LONG).show()
+            binding.progress=false
+            binding.noWifi=true
+            binding.recycler=false
+
         })
+
+        binding.buttonRetry.setOnClickListener {
+            binding.progress=true
+            binding.noWifi=false
+            binding.recycler=false
+            model.getTeamsForLeague(binding.spinner.selectedItem.toString().split(" ").get(0))}
 
 
         return binding.root

@@ -19,12 +19,21 @@ class ViewUtils {
     companion object{
         @JvmStatic
         @BindingAdapter("loadImageUrl")
-        fun ImageView.setImageUrl(url:String){
-            Glide.with(this.context)
-                .load(url)
-                .placeholder(R.drawable.ic_baseline_refresh_24)
-                .error(R.drawable.ic_baseline_wifi_off_24)
-                .into(this)
+        fun ImageView.setImageUrl(url:String?){
+
+                if(url!=null){
+                    Glide.with(this.context)
+                        .load(url)
+                        .placeholder(R.drawable.ic_baseline_refresh_24)
+                        .error(R.drawable.ic_baseline_wifi_off_24)
+                        .into(this)
+                }else{
+                   this.visibility=View.GONE
+                }
+
+
+
+
         }
 
         @JvmStatic
@@ -61,6 +70,18 @@ class ViewUtils {
                 visibility= View.GONE
 
             }
+        }
+
+
+        @JvmStatic
+        @BindingAdapter("isVisible")
+        fun View.isVisible( b:Boolean?) {
+
+            if (b!=null){
+                this.visibility = if (b) View.VISIBLE else View.GONE
+            }else{ this.visibility=View.GONE}
+
+
         }
 
     }
