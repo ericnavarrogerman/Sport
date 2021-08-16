@@ -5,13 +5,4 @@
     <string name="date_foundation">Founded in %1$s</string>
     <string name="proximos_eventos_deportivos">Upcoming sporting events</string>
 
-
-    <string-array name="leagues">
-        <item>4335 Spanish La Liga Soccer</item>
-        <item>4334 French Ligue 1 Soccer</item>
-        <item>4332 Italian Serie A Soccer</item>
-        <item>4328 English Premier League Soccer</item>
-        <item>4340 Portuguese Primeira Liga Soccer</item>
-    </string-array>
-
 </resources>
