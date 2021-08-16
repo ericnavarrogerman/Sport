@@ -22,7 +22,8 @@ class ViewUtils {
         fun ImageView.setImageUrl(url:String){
             Glide.with(this.context)
                 .load(url)
-                .placeholder(R.drawable.ic_baseline_sports_basketball_24)
+                .placeholder(R.drawable.ic_baseline_refresh_24)
+                .error(R.drawable.ic_baseline_wifi_off_24)
                 .into(this)
         }
 

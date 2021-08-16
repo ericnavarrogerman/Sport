@@ -6,6 +6,7 @@ import com.example.sport.model.ResponseEvents
 import com.example.sport.model.Teams
 import io.reactivex.Observable
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -25,14 +26,11 @@ interface SportService {
 
 
     @GET(SEARCH_ALL_TEAMS)
-  fun getTeamsForLeague(
-        @Query("id") idLeague:String
-
-  ): Call<ResponseApi>
+  suspend fun getTeamsForLeague(@Query("id") idLeague:String): Response<ResponseApi>
 
 
   @GET(SEARCH_EVENTOS)
-  fun getEventForId(@Query("id") idTeam: String): Call<ResponseEvents>
+  suspend fun getEventForId(@Query("id") idTeam: String): Response<ResponseEvents>
 
 
 

@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sport.R
 import com.example.sport.databinding.FragmentDetailsTeamBinding
@@ -41,11 +43,15 @@ class DetailsTeamFragment : Fragment() {
         val team:Teams=args.team
 
         val adapter =AdapterEvents()
-        val decoration: RecyclerView.ItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+        val decoration: RecyclerView.ItemDecoration = DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL)
+        var layoutManager =LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+
 
         binding.eventos.apply {
             this.adapter=adapter
+            this.layoutManager=layoutManager
             addItemDecoration(decoration)
+
         }
 
 
@@ -53,6 +59,10 @@ class DetailsTeamFragment : Fragment() {
 
         model.events.observe(viewLifecycleOwner,{
             adapter.setDataList(ArrayList(it))
+        })
+
+        model.error.observe(viewLifecycleOwner,{
+            Toast.makeText(context,"Error $it",Toast.LENGTH_LONG).show()
         })
 
 

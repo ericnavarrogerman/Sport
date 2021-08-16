@@ -25,9 +25,9 @@ private val apiInterface :SportService by lazy {
       .build()
 
 
-    fun getTeamsForLeague(idLeague:String) = apiInterface.getTeamsForLeague(idLeague)
+    suspend fun getTeamsForLeague(idLeague:String) = apiInterface.getTeamsForLeague(idLeague)
 
-    fun getEventForIdTeam(idTeam:String) = apiInterface.getEventForId(idTeam)
+    suspend fun getEventForIdTeam(idTeam:String) = apiInterface.getEventForId(idTeam)
 
 
 }

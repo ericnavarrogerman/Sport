@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavHost
@@ -85,6 +86,10 @@ class ListTeamFragment : Fragment() {
 
             adapter.setDataList(ArrayList(it))
 
+        })
+
+        model.error.observe(viewLifecycleOwner,{
+            Toast.makeText(context,"Error $it", Toast.LENGTH_LONG).show()
         })
 
 
