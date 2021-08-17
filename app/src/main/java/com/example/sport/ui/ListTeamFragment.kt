@@ -37,12 +37,16 @@ class ListTeamFragment : Fragment() {
 
         binding= FragmentListTeamBinding.bind(inflater.inflate(R.layout.fragment_list_team,container,false))
 
+        return binding.root
+    }
 
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        context?.let { ArrayAdapter.createFromResource(it,R.array.leagues, android.R.layout.simple_spinner_item).also { 
-            adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        context?.let { ArrayAdapter.createFromResource(it,R.array.leagues, android.R.layout.simple_selectable_list_item).also {
+                adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_selectable_list_item)
             binding.spinner.adapter=adapter
             binding.spinner.onItemSelectedListener = object :OnItemSelectedListener{
                 override fun onItemSelected(
@@ -53,19 +57,18 @@ class ListTeamFragment : Fragment() {
                 ) {
 
                     val selected = parent?.getItemAtPosition(position).toString().split(" ").get(0)
-                    binding.progress=true
-                    binding.noWifi=false
-                    binding.recycler=false
+
                     model.getTeamsForLeague(selected)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
 
+                    }
+
                 }
 
             }
-
-        } }
+        }
 
 
         val adapter = AdapterTeams().apply {
@@ -82,34 +85,22 @@ class ListTeamFragment : Fragment() {
         binding.rvTeams.apply {
             this.adapter=adapter
             addItemDecoration(decoration)
-
         }
 
-
-        model.teams.observe(viewLifecycleOwner,{
-            binding.progress=false
-            binding.noWifi=false
-            binding.recycler=true
-            adapter.setDataList(ArrayList(it))
-
-        })
-
-        model.error.observe(viewLifecycleOwner,{
-            binding.progress=false
-            binding.noWifi=true
-            binding.recycler=false
-
-        })
-
-        binding.buttonRetry.setOnClickListener {
-            binding.progress=true
-            binding.noWifi=false
-            binding.recycler=false
-            model.getTeamsForLeague(binding.spinner.selectedItem.toString().split(" ").get(0))}
+        binding.buttonRetry.setOnClickListener {model.getTeamsForLeague(binding.spinner.selectedItem.toString().split(" ").get(0))}
 
 
-        return binding.root
+        model.teams.observe(viewLifecycleOwner,{adapter.setDataList(ArrayList(it))})
+
+        model.errorIsVisible.observe(viewLifecycleOwner,{ binding.noWifi= it})
+
+        model.progressIsVisible.observe(viewLifecycleOwner,{binding.progress=it})
+
+        model.reciclerIsVisible.observe(viewLifecycleOwner,{binding.recycler=it})
+
+
     }
+
 
 
 }

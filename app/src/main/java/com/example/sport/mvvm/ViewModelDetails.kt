@@ -22,8 +22,13 @@ import javax.inject.Inject
 @HiltViewModel
 class ViewModelDetails  @Inject constructor( val repository: Repository): ViewModel() {
 
+    val progressIsVisible= MutableLiveData<Boolean>()
+    val errorIsVisible= MutableLiveData<Boolean>()
+    val reciclerIsVisible= MutableLiveData<Boolean>()
+
     val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        _error.postValue(throwable.message)
+        errorIsVisible.postValue(true)
+        progressIsVisible.postValue(false)
     }
 
 
@@ -32,22 +37,25 @@ class ViewModelDetails  @Inject constructor( val repository: Repository): ViewMo
     val events: LiveData<List<Events>>
         get() =_events
 
-
-    private val _error =MutableLiveData<String>()
-
-    val error :LiveData<String>
-        get() = _error
-
-
     fun getEventForIdTeam(id:String) {
 
+        reciclerIsVisible.value=false
+        errorIsVisible.value=false
+        progressIsVisible.value=true
 
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             val response = repository.getEventForIdTeam(id)
             if (response.isSuccessful){
+
+                errorIsVisible.postValue(false)
+                progressIsVisible.postValue(false)
+
+                reciclerIsVisible.postValue(true)
+
                 _events.postValue(response.body()!!.events)
             }else{
-               _error.postValue(response.message())
+                errorIsVisible.postValue(true)
+                progressIsVisible.postValue(false)
             }
 
         }

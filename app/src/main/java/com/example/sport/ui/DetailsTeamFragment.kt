@@ -37,10 +37,14 @@ class DetailsTeamFragment : Fragment() {
 
         binding = FragmentDetailsTeamBinding.bind(inflater.inflate(R.layout.fragment_details_team,container,false))
 
+        return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.team = args.team
-
-        val team:Teams=args.team
 
         val adapter =AdapterEvents()
         val decoration: RecyclerView.ItemDecoration = DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL)
@@ -51,37 +55,22 @@ class DetailsTeamFragment : Fragment() {
             this.adapter=adapter
             this.layoutManager=layoutManager
             addItemDecoration(decoration)
-
         }
 
-        getEvents(team.id)
+        binding.buttonRetry.setOnClickListener { model.getEventForIdTeam(args.team.id) }
+
+        model.getEventForIdTeam(args.team.id)
+
+        model.events.observe(viewLifecycleOwner,{adapter.setDataList(ArrayList(it))})
+
+        model.errorIsVisible.observe(viewLifecycleOwner,{ binding.noWifi= it})
+
+        model.progressIsVisible.observe(viewLifecycleOwner,{binding.progress=it})
+
+        model.reciclerIsVisible.observe(viewLifecycleOwner,{binding.recycler=it})
 
 
-        model.events.observe(viewLifecycleOwner,{
-            binding.progress=false
-            binding.noWifi=false
-            binding.recycler=true
-            adapter.setDataList(ArrayList(it))
-        })
-
-        model.error.observe(viewLifecycleOwner,{
-            binding.progress=false
-            binding.noWifi=true
-            binding.recycler=false
-        })
-
-        binding.buttonRetry.setOnClickListener { getEvents(team.id) }
-
-        return binding.root
     }
 
-
-
-    fun getEvents(id:String){
-        binding.progress=true
-        binding.noWifi=false
-        binding.recycler=false
-        model.getEventForIdTeam(id)
-    }
 
 }

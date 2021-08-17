@@ -24,8 +24,16 @@ import javax.inject.Inject
 class ViewModelListFragment @Inject constructor(var repository: Repository): ViewModel() {
 
 
+
+
+    val progressIsVisible= MutableLiveData<Boolean>()
+    val errorIsVisible= MutableLiveData<Boolean>()
+    val reciclerIsVisible= MutableLiveData<Boolean>()
+
     val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        _error.postValue(throwable.message)
+        errorIsVisible.postValue(true)
+        progressIsVisible.postValue(false)
+
     }
 
     private val _teams=MutableLiveData<List<Teams>>()
@@ -33,15 +41,11 @@ class ViewModelListFragment @Inject constructor(var repository: Repository): Vie
     val teams:LiveData<List<Teams>>
     get() =_teams
 
-    private val _error =MutableLiveData<String>()
-
-    val error :LiveData<String>
-        get() = _error
-
-
-
-
     fun getTeamsForLeague(idLeague:String){
+
+        reciclerIsVisible.value=false
+        errorIsVisible.value=false
+        progressIsVisible.value=true
 
 
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
@@ -49,17 +53,20 @@ class ViewModelListFragment @Inject constructor(var repository: Repository): Vie
            val response= repository.getTeamsForLeague(idLeague)
 
             if (response.isSuccessful){
+
+                 errorIsVisible.postValue(false)
+                 progressIsVisible.postValue(false)
+
+                 reciclerIsVisible.postValue(true)
+
                 _teams.postValue(response.body()!!.teams)
+
             }else{
-                _error.postValue(response.message())
+                 errorIsVisible.postValue(true)
+                 progressIsVisible.postValue(false)
             }
 
         }
-
-
-
-
-
 
     }
 
